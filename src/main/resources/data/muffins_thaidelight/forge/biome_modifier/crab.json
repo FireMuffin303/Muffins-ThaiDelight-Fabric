@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": ["minecraft:mangrove_swamp","minecraft:swamp"],
+  "spawners": {
+    "type": "muffins_thaidelight:flower_crab",
+    "weight": 10,
+    "minCount": 3,
+    "maxCount": 5
+  },
+  "category": "creature"
+}

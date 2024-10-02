@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "muffins_thaidelight",
+  "version": "${version}",
+  "name": "Muffin's Thai Delight Fabric",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/muffins_thaidelight/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.firemuffin303.muffinsthaidelightfabric.client.MuffinsthaidelightfabricClient"
+    ],
+    "main": [
+      "net.firemuffin303.muffinsthaidelightfabric.ThaiDelight"
+    ],
+    "fabric-datagen": [
+      "net.firemuffin303.muffinsthaidelightfabric.datagen.ModDataGen"
+    ]
+  },
+  "mixins": [
+    "muffins_thaidelight.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}",
+    "farmersdelight": "1.20.1-2.0.13+refabricated"
+  }
+}

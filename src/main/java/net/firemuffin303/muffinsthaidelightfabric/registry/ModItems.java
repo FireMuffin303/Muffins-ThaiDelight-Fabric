@@ -37,7 +37,7 @@ public class ModItems {
 
     //Crab
     public static final Item CRAB_SPAWN_EGG = register("flower_crab_spawn_egg",new SpawnEggItem(ModEntityTypes.FLOWER_CRAB,0x93a064,0xac3247,new Item.Properties()));
-    public static final Item CRAB_EGG = register("crab_egg", new BlockItem(ModBlocks.CRAB_EGG,new Item.Properties()));
+    public static final Item CRAB_EGG = register("flower_crab_egg", new BlockItem(ModBlocks.CRAB_EGG,new Item.Properties()));
     public static final Item CRAB_BUCKET = register("flower_crab_bucket",new MobBucketItem(ModEntityTypes.FLOWER_CRAB,Fluids.WATER,SoundEvents.BUCKET_EMPTY_FISH,new Item.Properties().stacksTo(1)));
     public static final Item CRAB_MEAT = register("flower_crab",new Item(new Item.Properties().food(ModFood.CRAB)));
     public static final Item COOKED_CRAB_MEAT = register("cooked_flower_crab",new Item(new Item.Properties().food(ModFood.COOKED_CRAB)));
@@ -51,7 +51,7 @@ public class ModItems {
 
     //Bucket
     public static final Item FISH_SAUCE_BOTTLE = register("fish_sauce_bottle",new DrinkableItem(drinkItem().food(ModFood.FISH_SAUCE),true,false)) ;
-    public static final Item FERMENTED_FISH_BOTTLE = register("fermented_fish_bottle",new DrinkableItem(drinkItem(),true,false));
+    public static final Item FERMENTED_FISH = register("fermented_fish",new ConsumableItem(bowlFoodItem(ModFood.FERMENTED_FISH),true,false));
     public static final Item PAPAYA_JUICE = register("papaya_juice",new DrinkableItem(drinkItem().food(ModFood.PAPAYA_JUICE),false,true){
         @Override
         public void affectConsumer(ItemStack stack, Level level, LivingEntity consumer) {
@@ -70,16 +70,10 @@ public class ModItems {
     //Crops
     public static final Item LIME_SAPLING = register("lime_sapling",new BlockItem(ModBlocks.LIME_SAPLING,new Item.Properties()));
     public static final Item LIME = register("lime",new Item(new Item.Properties().food(ModFood.LIME)));
-    public static final Item SLICED_LIME = register("lime_sliced",new Item(new Item.Properties().food(ModFood.LIME_SLICE)));
+    public static final Item SLICED_LIME = register("lime_slice",new Item(new Item.Properties().food(ModFood.LIME_SLICE)));
 
-    public static final Item WILD_PEPPER_CROP = register("wild_pepper_crop",new BlockItem(ModBlocks.WILD_PEPPER_CROP,new Item.Properties()));
-    public static final Item PEPPER = register("pepper",new Item(new Item.Properties().food(ModFood.PEPPER)){
-        @Override
-        public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
-            livingEntity.setTicksFrozen(0);
-            return super.finishUsingItem(itemStack, level, livingEntity);
-        }
-    });
+    public static final Item WILD_PEPPER_CROP = register("wild_pepper",new BlockItem(ModBlocks.WILD_PEPPER_CROP,new Item.Properties()));
+    public static final Item PEPPER = register("pepper",new Item(new Item.Properties().food(ModFood.PEPPER)));
     public static final Item PEPPER_SEED = register("pepper_seeds",new ItemNameBlockItem(ModBlocks.PEPPER_CROP,new Item.Properties()){
         @Override
         public void registerBlocks(Map<Block, Item> map, Item item) {
@@ -91,7 +85,7 @@ public class ModItems {
 
 
     public static final Item PAPAYA = register("papaya",new Item(new Item.Properties().food(ModFood.PAPAYA)));
-    public static final Item SLICED_PAPAYA = register("sliced_papaya",new Item(new Item.Properties().food(ModFood.SLICED_PAPAYA)));
+    public static final Item SLICED_PAPAYA = register("papaya_slice",new Item(new Item.Properties().food(ModFood.SLICED_PAPAYA)));
     public static final Item RAW_PAPAYA = register("raw_papaya",new Item(new Item.Properties().food(ModFood.RAW_PAPAYA)));
     public static final Item RAW_PAPAYA_SLICE = register("raw_papaya_slice",new Item(new Item.Properties().food(ModFood.SLICED_UNRIPE_PAPAYA)));
     public static final Item PAPAYA_LOG = register("papaya_log",new BlockItem(ModBlocks.PAPAYA_LOG,new Item.Properties()));
@@ -100,11 +94,11 @@ public class ModItems {
     public static final Item STRIPPED_PAPAYA_WOOD = register("stripped_papaya_wood",new BlockItem(ModBlocks.STRIPPED_PAPAYA_WOOD,new Item.Properties()));
     public static final Item PAPAYA_LEAVES = register("papaya_leaves",new BlockItem(ModBlocks.PAPAYA_LEAVES,new Item.Properties()));
     public static final Item PAPAYA_SAPLING = register("papaya_sapling",new BlockItem(ModBlocks.PAPAYA_SAPLING,new Item.Properties()));
-    public static final Item PAPAYA_SEEDS = register("papaya_seeds",new ItemNameBlockItem(ModBlocks.PAPAYA_CROPS,new Item.Properties()){
+    public static final Item PAPAYA_SEEDS = register("papaya_seeds",new ItemNameBlockItem(ModBlocks.PAPAYA_CROP,new Item.Properties()){
         @Override
         public void registerBlocks(Map<Block, Item> map, Item item) {
             super.registerBlocks(map, item);
-            map.put(ModBlocks.PAPAYA_CROPS,item);
+            map.put(ModBlocks.PAPAYA_CROP,item);
         }
     });
 
@@ -142,8 +136,12 @@ public class ModItems {
         public static final FoodProperties COOKED_DRAGONFLY = new FoodProperties.Builder().nutrition(3).saturationMod(0.2f).alwaysEat().build();
         public static final FoodProperties DRAGONFLY = new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).alwaysEat().effect(new MobEffectInstance(MobEffects.HUNGER,10*20,0),0.8f).effect(new MobEffectInstance(MobEffects.CONFUSION,10*20,0),0.8f).build();
 
-        public static final FoodProperties LIME = new FoodProperties.Builder().nutrition(4).saturationMod(0.2F).build();
-        public static final FoodProperties LIME_SLICE = new FoodProperties.Builder().nutrition(2).saturationMod(0.1F).build();
+        public static final FoodProperties LIME = new FoodProperties.Builder().nutrition(4).saturationMod(0.2F)
+                .effect(new MobEffectInstance(ModMobEffects.GLUTTONY,10*20),1.0f)
+                .build();
+        public static final FoodProperties LIME_SLICE = new FoodProperties.Builder().nutrition(2).saturationMod(0.1F)
+                .effect(new MobEffectInstance(ModMobEffects.GLUTTONY,5*20),1.0f)
+                .build();
 
         public static final FoodProperties PEPPER = new FoodProperties.Builder().nutrition(2).saturationMod(0.1F).alwaysEat().fast().build();
 
@@ -168,6 +166,8 @@ public class ModItems {
                 .nutrition(12)
                 .saturationMod(0.65F)
                 .effect(new MobEffectInstance(ModEffects.COMFORT.get(),5000,0),1.0f).build();
+        public static final FoodProperties FERMENTED_FISH = new FoodProperties.Builder()
+                .nutrition(7).saturationMod(0.35f).effect(new MobEffectInstance(ModMobEffects.STINKY,10*20),0.5f).build();
     }
 
 }

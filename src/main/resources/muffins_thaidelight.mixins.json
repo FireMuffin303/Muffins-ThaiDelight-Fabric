@@ -4,10 +4,24 @@
   "package": "net.firemuffin303.muffinsthaidelightfabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ChickenFoodAccessor",
+    "FrogFoodAccessor",
+    "ItemMixin",
+    "LayeredCauldronBlockMixin",
     "LivingEntityMixin",
-    "PowderSnowBlockMixin"
+    "MilkBottleItemMixin",
+    "MilkBucketItemMixin",
+    "MobAccessor",
+    "ParrotTameFoodAccessor",
+    "PigFoodAccessor",
+    "PlayerEntityMixin",
+    "PowderSnowBlockMixin",
+    "SniffingMixin",
+    "StructurePoolAccessor",
+    "VillagerMixin"
   ],
   "client": [
+    "PlayerRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

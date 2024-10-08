@@ -9,6 +9,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -25,6 +29,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -33,34 +38,19 @@ public class LimeCropBlock extends BushBlock implements BonemealableBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 
     private static final VoxelShape SAPLING_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
-    private static final VoxelShape GROWTH_SHAPE = Shapes.or(Block.box(0.0D, 8.0D, 0.0D, 16.0D, 16.0D, 16.0D), Block.box(6.0D, 0.0D, 6.0D, 10.0D, 8.0D, 10.0D));
+    private static final VoxelShape GROWTH_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
 
     public LimeCropBlock(Properties properties) {
         super(properties);
         this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(AGE, 0));
     }
 
-    public boolean isRandomlyTicking(BlockState blockState) {
-        return blockState.getValue(AGE) < 2;
-    }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(new Property[]{AGE});
     }
 
-    @Override
-    public boolean isCollisionShapeFullBlock(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
-        return super.isCollisionShapeFullBlock(blockState, blockGetter, blockPos);
-    }
 
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return GROWTH_SHAPE;
-    }
-
-    @Override
-    public ItemStack getCloneItemStack(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState) {
-        return new ItemStack(ModBlocks.LIME_SAPLING);
-    }
 
     public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
         int i = (Integer)blockState.getValue(AGE);
@@ -69,6 +59,10 @@ public class LimeCropBlock extends BushBlock implements BonemealableBlock {
             serverLevel.setBlock(blockPos, blockState2, 2);
             serverLevel.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(blockState2));
         }
+    }
+
+    public boolean isRandomlyTicking(BlockState blockState) {
+        return blockState.getValue(AGE) < 2;
     }
 
     @Override
@@ -82,7 +76,7 @@ public class LimeCropBlock extends BushBlock implements BonemealableBlock {
             int k = level.random.nextInt(4);
             popResource(level, blockPos, new ItemStack(ModItems.LIME, j));
             if(k <= 1){
-                popResource(level,blockPos,new ItemStack(ModBlocks.LIME_SAPLING,1));
+                popResource(level,blockPos,new ItemStack(ModItems.LIME_SAPLING,1));
             }
             level.playSound((Player)null, player, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
 
@@ -95,6 +89,17 @@ public class LimeCropBlock extends BushBlock implements BonemealableBlock {
             return super.use(blockState, level, blockPos, player, interactionHand, blockHitResult);
         }
     }
+
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return GROWTH_SHAPE;
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState) {
+        return new ItemStack(ModItems.LIME_SAPLING);
+    }
+
+    //--- Bonemeal ---
 
     @Override
     public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean bl) {

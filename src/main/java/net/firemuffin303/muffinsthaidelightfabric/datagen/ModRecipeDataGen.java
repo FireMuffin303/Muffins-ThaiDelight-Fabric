@@ -4,12 +4,16 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModBlocks;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModItems;
+import net.firemuffin303.muffinsthaidelightfabric.registry.ModRecipes;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModTags;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import vectorwing.farmersdelight.client.gui.CookingPotRecipeBookComponent;
+import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
+import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 
 import java.util.function.Consumer;
 
@@ -24,7 +28,11 @@ public class ModRecipeDataGen extends FabricRecipeProvider {
         smithing(exporter);
         cook(ModItems.CRAB_MEAT, ModItems.COOKED_CRAB_MEAT, 0.35f, 200, exporter);
         cook(ModItems.DRAGONFLY, ModItems.COOKED_DRAGONFLY, 0.35f, 200, exporter);
-        //mortar(exporter);
+        mortar(exporter);
+        SpecialRecipeBuilder.special(ModRecipes.ModSerializer.TASTY_CRAFTING_RECIPE).save(exporter,"tasty_food_crafting");
+
+
+
     }
 
     private void cook(ItemLike ingredient, Item result, float exp, int cookTicks, Consumer<FinishedRecipe> exporter) {
@@ -64,7 +72,7 @@ public class ModRecipeDataGen extends FabricRecipeProvider {
     }
 
     private void mortar(Consumer<FinishedRecipe> exporter){
-        MortarRecipeBuilder.mortar(ModBlocks.SOMTAM_FEAST).requires(ModItems.PEPPER).requires(vectorwing.farmersdelight.common.registry.ModItems.TOMATO.get()).requires(ModTags.RAW_PAPAYA).requires(ModItems.CRAB_MEAT).unlockedBy(getHasName(ModItems.RAW_PAPAYA),has(ModItems.RAW_PAPAYA)).save(exporter,"mortar/"+getItemName(ModBlocks.SOMTAM_FEAST));
+        MortarRecipeBuilder.mortar(ModBlocks.SOMTAM_FEAST).requires(ModItems.PEPPER).requires(vectorwing.farmersdelight.common.registry.ModItems.TOMATO.get()).requires(ModTags.RAW_PAPAYA).requires(ModItems.FERMENTED_FISH).unlockedBy(getHasName(ModItems.RAW_PAPAYA),has(ModItems.RAW_PAPAYA)).unlockedBy(getHasName(ModItems.FERMENTED_FISH),has(ModItems.FERMENTED_FISH)).save(exporter,"mortar/"+getItemName(ModBlocks.SOMTAM_FEAST));
 
         MortarRecipeBuilder.mortar(Items.BONE_MEAL,4).requires(Items.BONE,1).unlockedBy(getHasName(Items.BONE),has(Items.BONE)).save(exporter,"mortar/"+getItemName(Items.BONE_MEAL)+"_by_bone");
         MortarRecipeBuilder.mortar(Items.BONE_MEAL,2).requires(Items.NAUTILUS_SHELL,1).unlockedBy(getHasName(Items.NAUTILUS_SHELL),has(Items.NAUTILUS_SHELL)).save(exporter,"mortar/"+getItemName(Items.BONE_MEAL)+"_by_nautilus_shell");

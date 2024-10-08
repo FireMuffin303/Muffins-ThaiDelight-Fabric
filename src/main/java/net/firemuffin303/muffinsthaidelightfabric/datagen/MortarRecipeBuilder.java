@@ -3,6 +3,7 @@ package net.firemuffin303.muffinsthaidelightfabric.datagen;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.firemuffin303.muffinsthaidelightfabric.registry.ModRecipes;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
@@ -153,7 +154,7 @@ public class MortarRecipeBuilder implements RecipeBuilder {
 
         @Override
         public RecipeSerializer<?> getType() {
-            return RecipeSerializer.BLASTING_RECIPE;
+            return ModRecipes.ModSerializer.MORTAR_SERIALIZER;
         }
 
         @Nullable

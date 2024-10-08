@@ -15,7 +15,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class LimeSaplingBlock extends BushBlock implements BonemealableBlock {
-
     private static final VoxelShape SAPLING_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
 
 
@@ -31,7 +30,7 @@ public class LimeSaplingBlock extends BushBlock implements BonemealableBlock {
     @Override
     public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
         if (randomSource.nextInt(5) == 0 && serverLevel.getRawBrightness(blockPos.above(), 0) >= 9) {
-            serverLevel.setBlock(blockPos, (BlockState) ModBlocks.LIME_CROP.defaultBlockState().setValue(LimeCropBlock.AGE, 0), 3);
+            serverLevel.setBlock(blockPos, (BlockState) ModBlocks.LIME_BUSH.defaultBlockState().setValue(LimeCropBlock.AGE, 0), 3);
 
         }
     }
@@ -48,6 +47,6 @@ public class LimeSaplingBlock extends BushBlock implements BonemealableBlock {
 
     @Override
     public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
-        serverLevel.setBlock(blockPos, (BlockState) ModBlocks.LIME_CROP.defaultBlockState().setValue(LimeCropBlock.AGE, 0), 3);
+        serverLevel.setBlock(blockPos, (BlockState) ModBlocks.LIME_BUSH.defaultBlockState().setValue(LimeCropBlock.AGE, 0), 3);
     }
 }

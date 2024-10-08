@@ -5,9 +5,12 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.firemuffin303.muffinsthaidelightfabric.ThaiDelight;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModBlocks;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModItems;
+import net.firemuffin303.muffinsthaidelightfabric.registry.ModMobEffects;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
+import net.minecraft.advancements.critereon.EffectsChangedTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -107,6 +110,18 @@ public class AdvancementDataGen extends FabricAdvancementProvider {
             .parent(GOT_PEPPER)
             .build(new ResourceLocation(ThaiDelight.MOD_ID,"got_somtam"));
 
+    Advancement BEING_STINKY = Advancement.Builder.advancement()
+            .display(ModItems.FERMENTED_FISH,
+                    Component.translatable("advancement.muffins_thaidelight.being_stinky"),
+                    Component.translatable("advancement.muffins_thaidelight.being_stinky.description"),
+                    BACKGROUND,
+                    FrameType.TASK,
+                    true,
+                    true,
+                    false
+            ).addCriterion("being_stinky", EffectsChangedTrigger.TriggerInstance.hasEffects(MobEffectsPredicate.effects().and(ModMobEffects.STINKY)))
+            .parent(ROOT)
+            .build(new ResourceLocation(ThaiDelight.MOD_ID,"being_stinky"));
 
 
     @Override
@@ -117,5 +132,6 @@ public class AdvancementDataGen extends FabricAdvancementProvider {
         consumer.accept(GOT_PEPPER);
         consumer.accept(GOT_SPICY_MEAT_SALAD);
         consumer.accept(GOT_SOMTAM);
+        consumer.accept(BEING_STINKY);
     }
 }

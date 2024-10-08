@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModBlocks;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModItems;
+import net.firemuffin303.muffinsthaidelightfabric.registry.ModMobEffects;
 
 public class LangDataGen extends FabricLanguageProvider {
     protected LangDataGen(FabricDataOutput dataOutput) {
@@ -14,7 +15,8 @@ public class LangDataGen extends FabricLanguageProvider {
     public void generateTranslations(TranslationBuilder translationBuilder) {
         //Advancement
         translationBuilder.add("advancement.muffins_thaidelight.got_mortar","Thai's Delight");
-        translationBuilder.add("advancement.muffins_thaidelight.got_mortar.description",".");
+        translationBuilder.add("advancement.muffins_thaidelight.got_mortar.description","It's time to taste Thai Food!");
+
 
         translationBuilder.add("advancement.muffins_thaidelight.cooked_dragonfly","It's inedible!");
         translationBuilder.add("advancement.muffins_thaidelight.cooked_dragonfly.description","Obtains Cooked Dragonfly. Is it really edible?");
@@ -29,10 +31,15 @@ public class LangDataGen extends FabricLanguageProvider {
         translationBuilder.add("advancement.muffins_thaidelight.got_pepper.description","Obtains Pepper.");
 
         translationBuilder.add("advancement.muffins_thaidelight.got_spicy_meat_salad","Yummy Larb");
-        translationBuilder.add("advancement.muffins_thaidelight.got_spicy_meat_salad.description","Obtains Spicy Meat Salad. Yummy");
+        translationBuilder.add("advancement.muffins_thaidelight.got_spicy_meat_salad.description","Obtains Larb. Yummy");
 
         translationBuilder.add("advancement.muffins_thaidelight.got_somtam","Pepper Please");
         translationBuilder.add("advancement.muffins_thaidelight.got_somtam.description","Obtains Somtam, is one pepper really enough?");
+
+        translationBuilder.add("advancement.muffins_thaidelight.being_stinky","Uh Oh Stinky");
+        translationBuilder.add("advancement.muffins_thaidelight.being_stinky.description","Has Stinky effect. Take a bath.");
+
+        translationBuilder.add("item.muffins_thaidelight.tasty","Tasty");
 
         translationBuilder.add("farmersdelight.tooltip.papaya_juice","Clear Hunger Effect");
         translationBuilder.add("farmersdelight.tooltip.lime_juice","Clear Blindness Effect");
@@ -59,7 +66,7 @@ public class LangDataGen extends FabricLanguageProvider {
 
         //Feast
         translationBuilder.add(ModBlocks.SOMTAM_FEAST,"Somtam");
-        translationBuilder.add(ModBlocks.LARB_FEAST,"Spicy Minced Meat Salad");
+        translationBuilder.add(ModBlocks.LARB_FEAST,"Larb");
         translationBuilder.add(ModBlocks.CRAB_FRIED_RICE_FEAST,"Crab Fried Rice");
 
 
@@ -67,10 +74,10 @@ public class LangDataGen extends FabricLanguageProvider {
         translationBuilder.add(ModItems.PEPPER,"Pepper");
         translationBuilder.add(ModItems.PEPPER_SEED,"Pepper Seeds");
 
-        translationBuilder.add(ModBlocks.LIME_CROP,"Lime Bush");
+        translationBuilder.add(ModBlocks.LIME_BUSH,"Lime Bush");
+        translationBuilder.add(ModBlocks.LIME_SAPLING,"Lime Sapling");
         translationBuilder.add(ModItems.LIME,"Lime");
         translationBuilder.add(ModItems.SLICED_LIME,"Lime Slice");
-        translationBuilder.add(ModBlocks.LIME_SAPLING,"Lime Sapling");
 
         translationBuilder.add(ModItems.PAPAYA,"Papaya");
         translationBuilder.add(ModItems.SLICED_PAPAYA,"Papaya Slice");
@@ -88,7 +95,7 @@ public class LangDataGen extends FabricLanguageProvider {
         translationBuilder.add(ModItems.LIME_JUICE,"Lime Juice");
 
         translationBuilder.add(ModItems.FISH_SAUCE_BOTTLE,"Fish Sauce Bottle");
-        translationBuilder.add(ModItems.FERMENTED_FISH_BOTTLE,"Fermented Fish Bottle");
+        translationBuilder.add(ModItems.FERMENTED_FISH,"Fermented Fish");
         translationBuilder.add(ModBlocks.FERMENTED_FISH_CAULDRON,"Fermented Fish Cauldron");
 
         //Mobs
@@ -108,6 +115,20 @@ public class LangDataGen extends FabricLanguageProvider {
         translationBuilder.add("dragonfly.variant.muffins_thaidelight.blue","Blue");
         translationBuilder.add("container.muffins_thaidelight.mortar","Mortar");
 
+        translationBuilder.add(ModMobEffects.STINKY,"Stinky");
+        translationBuilder.add(ModMobEffects.GLUTTONY,"Gluttony");
+        translationBuilder.add("item.minecraft.potion.effect.stinkiness","Potion of Stinkiness");
+        translationBuilder.add("item.minecraft.potion.effect.long_stinkiness","Potion of Stinkiness");
+        translationBuilder.add("item.minecraft.potion.effect.strong_stinkiness","Potion of Stinkiness");
+
+        translationBuilder.add("item.minecraft.splash_potion.effect.stinkiness","Splash Potion of Stinkiness");
+        translationBuilder.add("item.minecraft.splash_potion.effect.long_stinkiness","Splash Potion of Stinkiness");
+        translationBuilder.add("item.minecraft.splash_potion.effect.strong_stinkiness","Splash Potion of Stinkiness");
+
+        translationBuilder.add("item.minecraft.lingering_potion.effect.stinkiness","Lingering Potion of Stinkiness");
+        translationBuilder.add("item.minecraft.lingering_potion.effect.long_stinkiness","Lingering Potion of Stinkiness");
+        translationBuilder.add("item.minecraft.lingering_potion.effect.strong_stinkiness","Lingering Potion of Stinkiness");
+
     }
 
     public static class ThaiLangData extends FabricLanguageProvider{
@@ -120,7 +141,7 @@ public class LangDataGen extends FabricLanguageProvider {
         public void generateTranslations(TranslationBuilder translationBuilder) {
             //Advancement
             translationBuilder.add("advancement.muffins_thaidelight.got_mortar","Thai's Delight");
-            translationBuilder.add("advancement.muffins_thaidelight.got_mortar.description",".");
+            translationBuilder.add("advancement.muffins_thaidelight.got_mortar.description","ได้เวลาลิ้มรสชาติของอาหารไทยแล้ว!");
 
             translationBuilder.add("advancement.muffins_thaidelight.cooked_dragonfly","มันกินไม่ได้!");
             translationBuilder.add("advancement.muffins_thaidelight.cooked_dragonfly.description","ได้รับแมลงปอทอด. มันกินได้จริง ๆ หรอ?");
@@ -140,9 +161,14 @@ public class LangDataGen extends FabricLanguageProvider {
             translationBuilder.add("advancement.muffins_thaidelight.got_somtam","พริกเพิ่มหน่อย");
             translationBuilder.add("advancement.muffins_thaidelight.got_somtam.description","ได้รับส้มตำ, เม็ดเดียวมันพอจริง ๆ หรอ?");
 
+            translationBuilder.add("advancement.muffins_thaidelight.being_stinky","โอ๊ะ โอ่ ตัวเหม็น");
+            translationBuilder.add("advancement.muffins_thaidelight.being_stinky.description","ได้รับสถานะ เหม็น. ไปอาบน้ำบ้างนะ.");
+
             translationBuilder.add("farmersdelight.tooltip.papaya_juice","ล้างหิวเร็ว");
             translationBuilder.add("farmersdelight.tooltip.lime_juice","ล้างตาบอด");
             translationBuilder.add("jei.info.papaya_log","คลิ๊กขวาด้วยผงกระดูกเพื่อโตผลมะละกอ");
+
+            translationBuilder.add("item.muffins_thaidelight.tasty","อยากอาหาร");
 
 
 
@@ -170,7 +196,6 @@ public class LangDataGen extends FabricLanguageProvider {
 
             //Crops
             translationBuilder.add(ModBlocks.WILD_PEPPER_CROP, "ต้นพริกป่า");
-            translationBuilder.add(ModBlocks.LIME_SAPLING,"ต้นอ่อนมะนาว");
 
             translationBuilder.add(ModBlocks.PAPAYA_SAPLING,"ต้นอ่อนมะละกอ");
             translationBuilder.add(ModItems.PAPAYA_SEEDS,"เมล็ดมะละกอ");
@@ -182,13 +207,14 @@ public class LangDataGen extends FabricLanguageProvider {
             translationBuilder.add(ModItems.PEPPER,"พริก");
             translationBuilder.add(ModItems.PEPPER_SEED,"เมล็ดพริก");
 
-            translationBuilder.add(ModBlocks.LIME_CROP,"ต้นมะนาว");
+            translationBuilder.add(ModBlocks.LIME_BUSH,"ต้นมะนาว");
+            translationBuilder.add(ModBlocks.LIME_SAPLING,"ต้นอ่อนมะนาว");
             translationBuilder.add(ModItems.LIME,"มะนาว");
             translationBuilder.add(ModItems.SLICED_LIME,"มะนาวหั่น");
 
             //Food
             translationBuilder.add(ModItems.FISH_SAUCE_BOTTLE,"ขวดน้ำปลา");
-            translationBuilder.add(ModItems.FERMENTED_FISH_BOTTLE,"ขวดปลาร้า");
+            translationBuilder.add(ModItems.FERMENTED_FISH,"ปลาร้า");
             translationBuilder.add(ModBlocks.FERMENTED_FISH_CAULDRON,"หม้อปลาร้า");
             translationBuilder.add(ModItems.PAPAYA_JUICE,"น้ำมะละกอ");
             translationBuilder.add(ModItems.LIME_JUICE,"น้ำมะนาว");
@@ -216,6 +242,20 @@ public class LangDataGen extends FabricLanguageProvider {
             translationBuilder.add("dragonfly.variant.muffins_thaidelight.green","สีเขียว");
             translationBuilder.add("dragonfly.variant.muffins_thaidelight.blue","สีฟ้า");
             translationBuilder.add("container.muffins_thaidelight.mortar","ครก");
+
+            translationBuilder.add(ModMobEffects.STINKY,"เหม็น");
+            translationBuilder.add(ModMobEffects.GLUTTONY,"ตะกละ");
+            translationBuilder.add("item.minecraft.potion.effect.stinkiness","น้ำยาเหม็น");
+            translationBuilder.add("item.minecraft.potion.effect.long_stinkiness","น้ำยาเหม็น");
+            translationBuilder.add("item.minecraft.potion.effect.strong_stinkiness","น้ำยาเหม็น");
+
+            translationBuilder.add("item.minecraft.splash_potion.effect.stinkiness","น้ำยาเหม็นแบบปา");
+            translationBuilder.add("item.minecraft.splash_potion.effect.long_stinkiness","น้ำยาเหม็นแบบปา");
+            translationBuilder.add("item.minecraft.splash_potion.effect.strong_stinkiness","น้ำยาเหม็นแบบปา");
+
+            translationBuilder.add("item.minecraft.lingering_potion.effect.stinkiness","น้ำยาเหม็นแบบระเหย");
+            translationBuilder.add("item.minecraft.lingering_potion.effect.long_stinkiness","น้ำยาเหม็นแบบระเหย");
+            translationBuilder.add("item.minecraft.lingering_potion.effect.strong_stinkiness","น้ำยาเหม็นแบบระเหย");
         }
     }
 }

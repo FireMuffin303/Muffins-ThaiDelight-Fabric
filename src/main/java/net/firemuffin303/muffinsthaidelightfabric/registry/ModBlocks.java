@@ -39,13 +39,13 @@ public class ModBlocks {
     public static final Block PAPAYA_CRATE = register("papaya_crate",new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).destroyTime(2.0f).explosionResistance(3.0f).sound(SoundType.WOOD)));
 
     //Eggs
-    public static final Block CRAB_EGG = register("crab_egg",new CrabEggBlock(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN)));
+    public static final Block CRAB_EGG = register("flower_crab_egg",new CrabEggBlock(BlockBehaviour.Properties.copy(Blocks.FROGSPAWN)));
 
     //Wild Crops
-    public static final Block WILD_PEPPER_CROP = register("wild_pepper_crop",new WildCropBlock(MobEffects.CONFUSION,6,BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
+    public static final Block WILD_PEPPER_CROP = register("wild_pepper",new WildCropBlock(MobEffects.CONFUSION,6,BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
     //Crops
-    public static final Block LIME_CROP = register("lime_crop",new LimeCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY)));
-    public static final Block LIME_SAPLING = register("lime_sapling",new LimeSaplingBlock(BlockBehaviour.Properties.copy(ModBlocks.LIME_CROP).noCollission()));
+    public static final Block LIME_BUSH = register("lime_bush",new LimeCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY)));
+    public static final Block LIME_SAPLING = register("lime_sapling",new LimeSaplingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY).noCollission()));
     public static final Block PEPPER_CROP = register("pepper_crop",new PepperCropBlock(BlockBehaviour.Properties.copy(Blocks.POTATOES)));
 
 
@@ -87,10 +87,10 @@ public class ModBlocks {
 
     public static final Block PAPAYA = register("papaya",new PapayaBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().strength(0.2F, 3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Block PAPAYA_SAPLING = register("papaya_sapling",new SaplingBlock(new PapayaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
-    public static final Block PAPAYA_CROPS = register("papaya_crops",new PapayaCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
+    public static final Block PAPAYA_CROP = register("papaya_crop",new PapayaCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
     //Cauldron
-    public static final Block FERMENTED_FISH_CAULDRON = register("fermented_fish_cauldron",new FermentedFishCauldronBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).randomTicks(),ModCauldronInteraction.FERMENTED_FISH));
+    public static final Block FERMENTED_FISH_CAULDRON = register("fermented_fish_cauldron",new FermentedFishCauldronBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON),ModCauldronInteraction.FERMENTED_FISH));
 
     public static void init() {
         

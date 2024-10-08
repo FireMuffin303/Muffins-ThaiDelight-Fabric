@@ -57,6 +57,7 @@ public class ModBlockLootTableData extends FabricBlockLootTableProvider {
         this.createSimpleLoot(ModBlocks.PAPAYA_WOOD);
         this.createSimpleLoot(ModBlocks.STRIPPED_PAPAYA_WOOD);
         this.createSimpleLoot(ModBlocks.PAPAYA_SAPLING);
+        this.createSimpleLoot(ModBlocks.LIME_SAPLING);
 
         this.add(ModBlocks.PAPAYA_LEAVES, (block) -> this.createLeavesDrops(block, ModBlocks.PAPAYA_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
 
@@ -82,18 +83,14 @@ public class ModBlockLootTableData extends FabricBlockLootTableProvider {
                                 .when(BlockLootSubProvider.HAS_SILK_TOUCH)
                                 .add(LootItem.lootTableItem(ModBlocks.CRAB_EGG)))));
 
-        net.minecraft.world.level.storage.loot.predicates.LootItemCondition.Builder checkLimeLevel = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.LIME_CROP).setProperties(net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder.properties().hasProperty(LimeCropBlock.AGE, 2));
-        this.add(ModBlocks.LIME_CROP, (net.minecraft.world.level.storage.loot.LootTable.Builder)
-                this.applyExplosionDecay(ModBlocks.LIME_SAPLING,
+        net.minecraft.world.level.storage.loot.predicates.LootItemCondition.Builder checkLimeLevel = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.LIME_BUSH).setProperties(net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder.properties().hasProperty(LimeCropBlock.AGE, 2));
+        this.add(ModBlocks.LIME_BUSH, (net.minecraft.world.level.storage.loot.LootTable.Builder)
+                this.applyExplosionDecay(ModItems.LIME_SAPLING,
                         LootTable.lootTable()
-                                .withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModBlocks.LIME_SAPLING)))
+                                .withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.LIME_SAPLING)))
                                 .withPool(LootPool.lootPool().when(checkLimeLevel)
                                         .add(LootItem.lootTableItem(ModItems.LIME)
                                                 .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))))));
-
-        this.add(ModBlocks.LIME_SAPLING,
-                this.applyExplosionDecay(ModBlocks.LIME_SAPLING,
-                        LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModBlocks.LIME_SAPLING)))));
 
         net.minecraft.world.level.storage.loot.predicates.LootItemCondition.Builder checkPepperLevel = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.PEPPER_CROP).setProperties(net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder.properties().hasProperty(CarrotBlock.AGE, 7));
         this.add(ModBlocks.PEPPER_CROP, (net.minecraft.world.level.storage.loot.LootTable.Builder)this.applyExplosionDecay(ModBlocks.PEPPER_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(ModItems.PEPPER))).withPool(LootPool.lootPool().when(checkPepperLevel).add(LootItem.lootTableItem(ModItems.PEPPER).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))))));
@@ -173,7 +170,7 @@ public class ModBlockLootTableData extends FabricBlockLootTableProvider {
                     .setRolls(UniformGenerator.between(1,4))
                     .add(LootItem.lootTableItem(ModItems.PEPPER_SEED)
                             .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f,4.0f))))
-                    .add(LootItem.lootTableItem(ModBlocks.LIME_SAPLING)
+                    .add(LootItem.lootTableItem(ModItems.LIME_SAPLING)
                             .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f,4.0f))))
                     .add(LootItem.lootTableItem(ModBlocks.PAPAYA_SAPLING)
                             .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f,4.0f)))));
@@ -189,7 +186,7 @@ public class ModBlockLootTableData extends FabricBlockLootTableProvider {
                             .setRolls(UniformGenerator.between(1,2))
                             .add(LootItem.lootTableItem(ModItems.PEPPER_SEED)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f,3.0f))))
-                            .add(LootItem.lootTableItem(ModBlocks.LIME_SAPLING)
+                            .add(LootItem.lootTableItem(ModItems.LIME_SAPLING)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f,3.0f))))
                             .add(LootItem.lootTableItem(ModBlocks.PAPAYA_SAPLING)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f,3.0f)))))
@@ -200,7 +197,7 @@ public class ModBlockLootTableData extends FabricBlockLootTableProvider {
                             .setRolls(UniformGenerator.between(1,2))
                             .add(LootItem.lootTableItem(ModItems.PEPPER_SEED)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f,3.0f))))
-                            .add(LootItem.lootTableItem(ModBlocks.LIME_SAPLING)
+                            .add(LootItem.lootTableItem(ModItems.LIME_SAPLING)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f,3.0f))))
                             .add(LootItem.lootTableItem(ModBlocks.PAPAYA_SAPLING)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f,3.0f)))))
@@ -212,7 +209,7 @@ public class ModBlockLootTableData extends FabricBlockLootTableProvider {
                                     .setRolls(UniformGenerator.between(1,6))
                                     .add(LootItem.lootTableItem(ModItems.PEPPER_SEED)
                                             .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f,3.0f))))
-                                    .add(LootItem.lootTableItem(ModBlocks.LIME_SAPLING)
+                                    .add(LootItem.lootTableItem(ModItems.LIME_SAPLING)
                                             .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f,3.0f))))
                                     .add(LootItem.lootTableItem(ModBlocks.PAPAYA_SAPLING)
                                             .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f,3.0f))))

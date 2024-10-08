@@ -102,6 +102,9 @@ public class ModTagDataGen {
                     .add(ModItems.LARB)
                     .add(ModItems.SOMTAM);
 
+            getOrCreateTagBuilder(TagKey.create(Registries.ITEM, new ResourceLocation("c","foods/cooked_meats")))
+                    .add(ModItems.COOKED_CRAB_MEAT)
+                    .add(ModItems.COOKED_DRAGONFLY);
 
         }
     }

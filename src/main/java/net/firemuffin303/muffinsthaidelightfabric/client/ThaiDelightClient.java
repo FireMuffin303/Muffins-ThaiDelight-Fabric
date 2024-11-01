@@ -8,12 +8,15 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.firemuffin303.muffinsthaidelightfabric.ThaiDelight;
+import net.firemuffin303.muffinsthaidelightfabric.client.model.BuffoloModel;
 import net.firemuffin303.muffinsthaidelightfabric.client.model.DragonflyModel;
 import net.firemuffin303.muffinsthaidelightfabric.client.model.FlowerCrabModel;
+import net.firemuffin303.muffinsthaidelightfabric.client.renderer.BuffoloRenderer;
 import net.firemuffin303.muffinsthaidelightfabric.client.renderer.CrabRenderer;
 import net.firemuffin303.muffinsthaidelightfabric.client.renderer.DragonflyRenderer;
 import net.firemuffin303.muffinsthaidelightfabric.client.sceens.MortarScreen;
 import net.firemuffin303.muffinsthaidelightfabric.common.block.FermentedFishCauldronBlock;
+import net.firemuffin303.muffinsthaidelightfabric.common.entity.BuffaloEntity;
 import net.firemuffin303.muffinsthaidelightfabric.common.entitydata.SpicyData;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModBlocks;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModEntityTypes;
@@ -28,8 +31,10 @@ public class ThaiDelightClient implements ClientModInitializer {
     public void onInitializeClient() {
         EntityRendererRegistry.register(ModEntityTypes.FLOWER_CRAB, CrabRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.DRAGONFLY, DragonflyRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.BUFFALO, BuffoloRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(FlowerCrabModel.LAYER,FlowerCrabModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(DragonflyModel.LAYER,DragonflyModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(BuffoloModel.LAYER_LOCATION,BuffoloModel::createBodyLayer);
 
         MenuScreens.register(ModMenuType.MORTAR, MortarScreen::new);
 

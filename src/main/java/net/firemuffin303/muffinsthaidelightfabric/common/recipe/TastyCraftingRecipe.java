@@ -59,6 +59,7 @@ public class TastyCraftingRecipe extends CustomRecipe {
         }
 
         if(!itemStack.isEmpty()){
+
             CompoundTag compoundTag = itemStack.getOrCreateTag();
             compoundTag.putBoolean("Tasty",true);
         }

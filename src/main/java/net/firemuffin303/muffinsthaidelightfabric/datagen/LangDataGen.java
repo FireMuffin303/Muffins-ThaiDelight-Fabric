@@ -129,6 +129,10 @@ public class LangDataGen extends FabricLanguageProvider {
         translationBuilder.add("item.minecraft.lingering_potion.effect.long_stinkiness","Lingering Potion of Stinkiness");
         translationBuilder.add("item.minecraft.lingering_potion.effect.strong_stinkiness","Lingering Potion of Stinkiness");
 
+        translationBuilder.add("item.minecraft.tipped_arrow.effect.stinkiness","Arrow of Stinkiness");
+        translationBuilder.add("item.minecraft.tipped_arrow.effect.long_stinkiness","Arrow of Stinkiness");
+        translationBuilder.add("item.minecraft.tipped_arrow.effect.strong_stinkiness","Arrow of Stinkiness");
+
     }
 
     public static class ThaiLangData extends FabricLanguageProvider{
@@ -256,6 +260,10 @@ public class LangDataGen extends FabricLanguageProvider {
             translationBuilder.add("item.minecraft.lingering_potion.effect.stinkiness","น้ำยาเหม็นแบบระเหย");
             translationBuilder.add("item.minecraft.lingering_potion.effect.long_stinkiness","น้ำยาเหม็นแบบระเหย");
             translationBuilder.add("item.minecraft.lingering_potion.effect.strong_stinkiness","น้ำยาเหม็นแบบระเหย");
+
+            translationBuilder.add("item.minecraft.tipped_arrow.effect.stinkiness","ลูกธนูอาบยาเหม็น");
+            translationBuilder.add("item.minecraft.tipped_arrow.effect.long_stinkiness","ลูกธนูอาบยาเหม็น");
+            translationBuilder.add("item.minecraft.tipped_arrow.effect.strong_stinkiness","ลูกธนูอาบยาเหม็น");
         }
     }
 }

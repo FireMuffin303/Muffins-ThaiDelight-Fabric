@@ -33,6 +33,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
@@ -41,7 +42,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.biome.Biomes;
@@ -83,9 +86,7 @@ public class ThaiDelight implements ModInitializer {
         init();
         postInit();
 
-        FabricDefaultAttributeRegistry.register(ModEntityTypes.FLOWER_CRAB, FlowerCrabEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(ModEntityTypes.DRAGONFLY, DragonflyEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(ModEntityTypes.BUFFALO, BuffaloEntity.createAttributes());
+
 
         ServerPlayConnectionEvents.JOIN.register((serverGamePacketListener, packetSender, minecraftServer) -> minecraftServer.execute(() -> {
             FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
@@ -122,6 +123,8 @@ public class ThaiDelight implements ModInitializer {
 
         });
 
+
+
     }
 
     private void init(){
@@ -144,14 +147,29 @@ public class ThaiDelight implements ModInitializer {
         registerAnimalFood();
         addVillagersTrades();
 
+        FabricDefaultAttributeRegistry.register(ModEntityTypes.FLOWER_CRAB, FlowerCrabEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntityTypes.DRAGONFLY, DragonflyEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntityTypes.BUFFALO, BuffaloEntity.createAttributes());
+
         SpawnPlacements.register(ModEntityTypes.FLOWER_CRAB,SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FlowerCrabEntity::checkSpawnRules);
-        SpawnPlacements.register(ModEntityTypes.DRAGONFLY,SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.DRAGONFLY,SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DragonflyEntity::checkSpawnRules);
+
+        /*
+        List<Item> fishes = BuiltInRegistries.ITEM.stream().filter(item -> new ItemStack(item).is(ItemTags.FISHES)).toList();
+        for(Item item : fishes ){
+            PotionBrewing.add
+
+            new PotionBrewing.Mix<Item>(item, Ingredient.of(PotionUtils.setPotion(Items.POTION.getDefaultInstance(),Potions.WATER)),ModItems.FISH_SAUCE_BOTTLE);
+
+        }
+
+         */
 
         PotionBrewing.addMix(Potions.AWKWARD,ModItems.FERMENTED_FISH,ModMobEffects.STINKY_POTION);
         PotionBrewing.addMix(ModMobEffects.STINKY_POTION, Items.REDSTONE,ModMobEffects.LONG_STINKY_POTION);
         PotionBrewing.addMix(ModMobEffects.STINKY_POTION, Items.GLOWSTONE_DUST,ModMobEffects.STRONG_STINKY_POTION);
 
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.MANGROVE_SWAMP,Biomes.SWAMP), MobCategory.CREATURE,ModEntityTypes.FLOWER_CRAB,10,3,5);
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.BEACH), MobCategory.CREATURE,ModEntityTypes.FLOWER_CRAB,10,3,5);
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.MANGROVE_SWAMP,Biomes.SWAMP), MobCategory.CREATURE,ModEntityTypes.DRAGONFLY,2,1,3);
 
         BiomeModifications.addFeature((context) ->{
@@ -159,21 +177,21 @@ public class ThaiDelight implements ModInitializer {
         }, GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.PATCH_LIME_BUSH);
 
         BiomeModifications.addFeature((context) ->{
-            return BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.FLOWER_FOREST,Biomes.SAVANNA,Biomes.SAVANNA_PLATEAU).test(context);
+            return BiomeSelectors.includeByKey(Biomes.SAVANNA,Biomes.SAVANNA_PLATEAU,Biomes.WINDSWEPT_SAVANNA).test(context);
         }, GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.PATCH_WILD_PEPPER);
 
         BiomeModifications.addFeature((context) ->{
-            return BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.FLOWER_FOREST,Biomes.SAVANNA,Biomes.SAVANNA_PLATEAU).test(context);
+            return BiomeSelectors.includeByKey(Biomes.SAVANNA,Biomes.SAVANNA_PLATEAU,Biomes.WINDSWEPT_SAVANNA).test(context);
         }, GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.PAPAYA_TREE_CHECKED);
 
         ServerLifecycleEvents.SERVER_STARTING.register(minecraftServer -> {
             addToStructurePool(minecraftServer,
                     new ResourceLocation("minecraft","village/plains/houses"),
-                    new ResourceLocation(ThaiDelight.MOD_ID, "village/plains/houses/small_thai_house_1"),4);
+                    new ResourceLocation(ThaiDelight.MOD_ID, "village/plains/houses/small_thai_house_1"),2);
 
             addToStructurePool(minecraftServer,
                     new ResourceLocation("minecraft","village/savanna/houses"),
-                    new ResourceLocation(ThaiDelight.MOD_ID,"village/savanna/houses/savanna_small_thai_house_1"),4);
+                    new ResourceLocation(ThaiDelight.MOD_ID,"village/savanna/houses/savanna_small_thai_house_1"),2);
         });
 
 

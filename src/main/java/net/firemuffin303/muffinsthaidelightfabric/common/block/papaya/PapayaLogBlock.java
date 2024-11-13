@@ -1,4 +1,4 @@
-package net.firemuffin303.muffinsthaidelightfabric.common.block;
+package net.firemuffin303.muffinsthaidelightfabric.common.block.papaya;
 
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModBlocks;
 import net.minecraft.core.BlockPos;

@@ -12,6 +12,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -39,6 +40,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -113,6 +115,11 @@ public class DragonflyEntity extends Animal implements VariantHolder<DragonflyEn
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
         return Bottleable.tryBottle(player,interactionHand,this).orElse(super.mobInteract(player,interactionHand));
+    }
+
+    //Spawn
+    public static boolean checkSpawnRules(EntityType<DragonflyEntity> dragonflyEntityEntityType, ServerLevelAccessor serverLevelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+        return serverLevelAccessor.getBlockState(blockPos.below()).is(Blocks.WATER) && isBrightEnoughToSpawn(serverLevelAccessor,blockPos);
     }
 
     public float getWalkTargetValue(BlockPos blockPos, LevelReader levelReader) {

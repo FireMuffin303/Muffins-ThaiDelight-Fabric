@@ -48,8 +48,8 @@ public class ModItems {
     public static final Item DRAGONFLY_BOTTLE = register("dragonfly_bottle",new DragonflyBottleItem(new Item.Properties().stacksTo(1)));
     public static final Item COOKED_DRAGONFLY = register("cooked_dragonfly",new Item(new Item.Properties().food(ModFood.COOKED_DRAGONFLY)));
 
-    //Buffolo
-    public static final Item BUFFOLO_SPAWN_EGG = register("buffolo_spawn_egg",new SpawnEggItem(ModEntityTypes.BUFFALO,0x343639,0x444444,new Item.Properties()));
+    //Buffalo
+    public static final Item BUFFALO_SPAWN_EGG = register("buffalo_spawn_egg",new SpawnEggItem(ModEntityTypes.BUFFALO,0x343639,0x444444,new Item.Properties()));
 
     //Bucket
     public static final Item FISH_SAUCE_BOTTLE = register("fish_sauce_bottle",new DrinkableItem(drinkItem().food(ModFood.FISH_SAUCE),true,false)) ;
@@ -73,6 +73,7 @@ public class ModItems {
     public static final Item LIME_SAPLING = register("lime_sapling",new BlockItem(ModBlocks.LIME_SAPLING,new Item.Properties()));
     public static final Item LIME = register("lime",new Item(new Item.Properties().food(ModFood.LIME)));
     public static final Item SLICED_LIME = register("lime_slice",new Item(new Item.Properties().food(ModFood.LIME_SLICE)));
+    public static final Item LIME_LEAVES = register("lime_leaves",new BlockItem(ModBlocks.LIME_LEAVES,new Item.Properties()));
 
     public static final Item WILD_PEPPER_CROP = register("wild_pepper",new BlockItem(ModBlocks.WILD_PEPPER_CROP,new Item.Properties()));
     public static final Item PEPPER = register("pepper",new Item(new Item.Properties().food(ModFood.PEPPER)));

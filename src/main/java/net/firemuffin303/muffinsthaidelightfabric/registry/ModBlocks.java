@@ -4,6 +4,13 @@ package net.firemuffin303.muffinsthaidelightfabric.registry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.firemuffin303.muffinsthaidelightfabric.ThaiDelight;
 import net.firemuffin303.muffinsthaidelightfabric.common.block.*;
+import net.firemuffin303.muffinsthaidelightfabric.common.block.lime.LimeBlock;
+import net.firemuffin303.muffinsthaidelightfabric.common.block.lime.LimeCropBlock;
+import net.firemuffin303.muffinsthaidelightfabric.common.block.lime.LimeLeavesBlock;
+import net.firemuffin303.muffinsthaidelightfabric.common.block.lime.LimeSaplingBlock;
+import net.firemuffin303.muffinsthaidelightfabric.common.block.papaya.PapayaBlock;
+import net.firemuffin303.muffinsthaidelightfabric.common.block.papaya.PapayaCropBlock;
+import net.firemuffin303.muffinsthaidelightfabric.common.block.papaya.PapayaLogBlock;
 import net.firemuffin303.muffinsthaidelightfabric.common.trees.PapayaTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -46,6 +53,9 @@ public class ModBlocks {
     //Crops
     public static final Block LIME_BUSH = register("lime_bush",new LimeCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY)));
     public static final Block LIME_SAPLING = register("lime_sapling",new LimeSaplingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY).noCollission()));
+    public static final Block LIME_LEAVES = register("lime_leaves",new LimeLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().sound(SoundType.SWEET_BERRY_BUSH).ignitedByLava()));
+    public static final Block LIME_BLOCK = register("lime_block",new LimeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().noOcclusion().pushReaction(PushReaction.DESTROY).randomTicks().sound(SoundType.SWEET_BERRY_BUSH)));
+
     public static final Block PEPPER_CROP = register("pepper_crop",new PepperCropBlock(BlockBehaviour.Properties.copy(Blocks.POTATOES)));
 
 

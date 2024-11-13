@@ -1,7 +1,7 @@
 package net.firemuffin303.muffinsthaidelightfabric.common.feature;
 
 import com.mojang.serialization.Codec;
-import net.firemuffin303.muffinsthaidelightfabric.common.block.PapayaBlock;
+import net.firemuffin303.muffinsthaidelightfabric.common.block.papaya.PapayaBlock;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModBlocks;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModTreeDecoratorTypes;
 import net.minecraft.core.BlockPos;

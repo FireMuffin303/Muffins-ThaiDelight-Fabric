@@ -46,6 +46,7 @@ public class ModelDataGen extends FabricModelProvider {
         blockStateModelGenerator.woodProvider(ModBlocks.STRIPPED_PAPAYA_LOG).logWithHorizontal(ModBlocks.STRIPPED_PAPAYA_LOG).wood(ModBlocks.STRIPPED_PAPAYA_WOOD);
 
         createCubeAll(ModBlocks.PAPAYA_LEAVES,blockStateModelGenerator);
+        createCubeAll(ModBlocks.LIME_LEAVES,blockStateModelGenerator);
 
         blockStateModelGenerator.blockStateOutput.accept(
                 MultiVariantGenerator.multiVariant(ModBlocks.PAPAYA)
@@ -125,7 +126,7 @@ public class ModelDataGen extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.COOKED_DRAGONFLY, ModelTemplates.FLAT_ITEM);
 
         //Buffolo
-        itemModelGenerator.generateFlatItem(ModItems.BUFFOLO_SPAWN_EGG,SPAWN_EGG);
+        itemModelGenerator.generateFlatItem(ModItems.BUFFALO_SPAWN_EGG,SPAWN_EGG);
 
         itemModelGenerator.generateFlatItem(ModItems.FISH_SAUCE_BOTTLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.FERMENTED_FISH,ModelTemplates.FLAT_ITEM);

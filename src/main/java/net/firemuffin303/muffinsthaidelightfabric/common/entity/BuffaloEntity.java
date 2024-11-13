@@ -20,6 +20,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
@@ -32,16 +33,17 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BuffaloEntity extends Animal implements ContainerListener, HasCustomInventoryScreen,Saddleable,PlayerRideableJumping {
+public class BuffaloEntity extends AbstractHorse implements ContainerListener, HasCustomInventoryScreen,Saddleable,PlayerRideableJumping {
     private static final EntityDataAccessor<Boolean> DATA_SADDLE = SynchedEntityData.defineId(BuffaloEntity.class,EntityDataSerializers.BOOLEAN);
     protected SimpleContainer inventory;
     private final int INVENTORY_SIZE = 2;
     protected float playerJumpPendingScale;
-    protected boolean isCharging;
+    protected BuffaloRideState state;
 
-    public BuffaloEntity(EntityType<? extends Animal> entityType, Level level) {
+    public BuffaloEntity(EntityType<? extends AbstractHorse> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.0f);
+        state = BuffaloRideState.GROUND;
 
         SimpleContainer simpleContainer = this.inventory;
         this.inventory = new SimpleContainer(INVENTORY_SIZE);
@@ -116,7 +118,7 @@ public class BuffaloEntity extends Animal implements ContainerListener, HasCusto
     }
 
     @Override
-    protected boolean isImmobile() {
+    public boolean isImmobile() {
         return super.isImmobile() && this.isVehicle() && this.isSaddled();
     }
 
@@ -176,18 +178,29 @@ public class BuffaloEntity extends Animal implements ContainerListener, HasCusto
     }
 
     //--- Ride Logic ---
+
+
+    public BuffaloRideState getState() {
+        return state;
+    }
+
+    public void setState(BuffaloRideState state) {
+        this.state = state;
+    }
+
+    //Riding State Logic
     @Override
     protected void tickRidden(Player player, Vec3 vec3) {
         super.tickRidden(player, vec3);
         if(this.isInWater() && this.getFluidHeight(FluidTags.WATER) > this.getFluidJumpThreshold()){
-            this.setDeltaMovement(this.getDeltaMovement().x,0.2f,this.getDeltaMovement().z);
+            this.setState(BuffaloRideState.IN_WATER);
         }
 
         if(this.playerJumpPendingScale > 0.0f){
-           if(!this.isCharging){
-              this.isCharging = true;
+           if(this.getState().equals(BuffaloRideState.GROUND)){
+              this.setState(BuffaloRideState.CHARGE);
               this.hasImpulse = true;
-           }else {
+           }else if(this.getState().equals(BuffaloRideState.CHARGE)) {
               double d = this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 3.5f;
               Vec3 vec32 = new Vec3(this.getDeltaMovement().x,0,(0.98) * d);
 
@@ -200,7 +213,7 @@ public class BuffaloEntity extends Animal implements ContainerListener, HasCusto
                 this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
 
                 this.playerJumpPendingScale = 0.0f;
-                this.isCharging = false;
+                this.setState(BuffaloRideState.GROUND);
         }
 
 
@@ -211,24 +224,16 @@ public class BuffaloEntity extends Animal implements ContainerListener, HasCusto
         return new Vec2(livingEntity.getXRot() * 0.5F, livingEntity.getYRot());
     }
 
-    protected void executeRidersJump(float f, Vec3 vec3) {
-        double d = this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (double)f * (double)this.getBlockJumpFactor();
-        double e = d + (double)this.getJumpBoostPower();
-        Vec3 vec32 = this.getDeltaMovement();
-        this.setDeltaMovement(vec32.x, 0, e);
-        this.isCharging = true;
-        this.hasImpulse = true;
-
-    }
 
     @Override
     protected float getRiddenSpeed(Player player) {
         return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED);
     }
 
+    //Movement via State
     @Override
-    protected Vec3 getRiddenInput(Player player, Vec3 vec3) {
-        if(!this.isCharging){
+    protected @NotNull Vec3 getRiddenInput(Player player, Vec3 vec3) {
+        if(this.getState().equals(BuffaloRideState.GROUND)){
             float f = player.xxa * 0.5F;
             float g = player.zza * 0.75F;
             if (g <= 0.0F) {
@@ -296,7 +301,7 @@ public class BuffaloEntity extends Animal implements ContainerListener, HasCusto
 
     @Override
     public boolean canJump() {
-        return this.isSaddled() && !this.isCharging;
+        return this.isSaddled() && !this.getState().equals(BuffaloRideState.CHARGE);
     }
 
     @Override
@@ -327,6 +332,23 @@ public class BuffaloEntity extends Animal implements ContainerListener, HasCusto
 
     @Override
     public void openCustomInventoryScreen(Player player) {
+        if (!this.level().isClientSide) {
+            player.openHorseInventory(this, this.inventory);
+        }
+    }
 
+    //Abstract Horse
+
+
+    @Override
+    public boolean isTamed() {
+        return true;
+    }
+
+    public enum BuffaloRideState {
+        GROUND,
+        CHARGE,
+        IN_WATER,
+        UNDERWATER
     }
 }

@@ -7,9 +7,9 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-public class BuffoloRenderer extends MobRenderer<BuffaloEntity, BuffoloModel<BuffaloEntity>> {
+public class BuffaloRenderer extends MobRenderer<BuffaloEntity, BuffoloModel<BuffaloEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(ThaiDelight.MOD_ID,"textures/entity/buffolo/buffolo.png");
-    public BuffoloRenderer(EntityRendererProvider.Context context) {
+    public BuffaloRenderer(EntityRendererProvider.Context context) {
         super(context, new BuffoloModel<>(context.bakeLayer(BuffoloModel.LAYER_LOCATION)), 0.8f);
     }
 

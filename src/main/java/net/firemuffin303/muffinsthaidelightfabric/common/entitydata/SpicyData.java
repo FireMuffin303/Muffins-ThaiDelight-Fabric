@@ -20,18 +20,24 @@ public class SpicyData {
     private int lastSentLevel = 0;
     public int spicy_cooldown_tick = 0;
 
+    //--- new Spicy System ---
+    public SpicyLevel spicyLevelState;
+    private int spicyTimer = 0;
+
     private final LivingEntity livingEntity;
 
     public SpicyData(LivingEntity livingEntity){
         this.livingEntity = livingEntity;
+        this.spicyLevelState = SpicyLevel.NONE;
     }
 
     public void mobTick(){
         if(!this.livingEntity.level().isClientSide){
-
-            int timeTick = livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE) ? 1 : 10;
-
-            if(this.livingEntity.tickCount % timeTick == 0){
+            if(this.livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE) && !this.getSpicyLevelState().equals(SpicyLevel.NONE)){
+                this.setSpicyLevel(0);
+                this.setSpicyLevelState(SpicyLevel.NONE);
+            }
+            if(this.livingEntity.tickCount % 20 == 0){
                 this.addSpicyLevel(-1);
                 //livingEntity.level().addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE,livingEntity.getEyePosition().x(),livingEntity.getEyePosition().y() +1.0,livingEntity.getEyePosition().z(),0.0,0.0,0.0);
             }
@@ -48,6 +54,15 @@ public class SpicyData {
     public void reset(){
         this.spicyLevel = 0;
         this.spicy_cooldown_tick = 0;
+        this.setSpicyLevelState(SpicyLevel.NONE);
+    }
+
+    public void setSpicyLevelState(SpicyLevel spicyLevelState) {
+        this.spicyLevelState = spicyLevelState;
+    }
+
+    public SpicyLevel getSpicyLevelState() {
+        return spicyLevelState;
     }
 
     public void setSpicyLevel(int value){
@@ -81,6 +96,19 @@ public class SpicyData {
 
     public int getSpicyLevel() {
         return spicyLevel;
+    }
+
+    public enum SpicyLevel{
+        NONE(0x000000),
+        LOW(0xffffff),
+        MEDIUM(0xf24e31),
+        HIGH(0xab1010);
+
+        final int color;
+
+        SpicyLevel(int i) {
+            this.color = i;
+        }
     }
 
     public interface SpicyAccessor{

@@ -1,5 +1,6 @@
 package net.firemuffin303.muffinsthaidelightfabric.common.recipe;
 
+import net.firemuffin303.muffinsthaidelightfabric.common.item.tooltipComponent.FlavorTooltipClient;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModItems;
 import net.firemuffin303.muffinsthaidelightfabric.registry.ModRecipes;
 import net.minecraft.core.NonNullList;
@@ -8,7 +9,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.WrittenBookItem;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -16,9 +16,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class TastyCraftingRecipe extends CustomRecipe {
+public class SourCraftingRecipe extends CustomRecipe {
 
-    public TastyCraftingRecipe(ResourceLocation resourceLocation, CraftingBookCategory craftingBookCategory) {
+    public SourCraftingRecipe(ResourceLocation resourceLocation, CraftingBookCategory craftingBookCategory) {
         super(resourceLocation, craftingBookCategory);
     }
 
@@ -30,7 +30,7 @@ public class TastyCraftingRecipe extends CustomRecipe {
 
         for (int i = 0; i < container.getContainerSize(); ++i){
             ItemStack itemStack = container.getItem(i);
-            boolean containsTag = (itemStack.hasTag() && itemStack.getTag().getBoolean("Tasty"));
+            boolean containsTag = (itemStack.hasTag() && itemStack.getTag().contains(FlavorTooltipClient.FlavorTooltipComponent.FLAVOR_NBT));
             if(!itemStack.isEmpty() && itemStack.isEdible() && !itemStack.is(ModItems.SLICED_LIME) && !containsTag){
                 if(foodChecked){
                     return false;
@@ -61,13 +61,14 @@ public class TastyCraftingRecipe extends CustomRecipe {
         if(!itemStack.isEmpty()){
 
             CompoundTag compoundTag = itemStack.getOrCreateTag();
-            compoundTag.putBoolean("Tasty",true);
+            CompoundTag flavorTag = new CompoundTag();
+            flavorTag.putBoolean(FlavorTooltipClient.FlavorTooltipComponent.SOUR_NBT,true);
+            compoundTag.put(FlavorTooltipClient.FlavorTooltipComponent.FLAVOR_NBT,flavorTag);
         }
 
         return itemStack;
     }
 
-    //TODO : ItemRemainFix
     @Override
     public @NotNull NonNullList<ItemStack> getRemainingItems(CraftingContainer container) {
         return NonNullList.withSize(container.getContainerSize(), ItemStack.EMPTY);

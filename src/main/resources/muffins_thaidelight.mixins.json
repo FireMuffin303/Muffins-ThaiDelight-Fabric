@@ -21,6 +21,7 @@
     "VillagerMixin"
   ],
   "client": [
+    "GameRendererMixin",
     "PlayerRendererMixin"
   ],
   "injectors": {

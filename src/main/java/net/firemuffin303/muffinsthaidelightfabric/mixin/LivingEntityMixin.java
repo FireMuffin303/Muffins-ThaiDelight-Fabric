@@ -25,13 +25,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin implements SpicyData.SpicyAccessor {
 
-    @Shadow public abstract boolean addEffect(MobEffectInstance mobEffectInstance);
+    @Unique
+    public final SpicyData muffins_thaidelight$spicyData = new SpicyData(((LivingEntity)(Object)this));
 
-    @Shadow protected abstract void verifyEquippedItem(ItemStack itemStack);
-
-    @Shadow public abstract boolean removeAllEffects();
-
-    @Shadow public abstract void forceAddEffect(MobEffectInstance mobEffectInstance, @Nullable Entity entity);
 
     @Inject(method = "eat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;addEatEffect(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;)V"))
     public void muffins_thaidelight$eat(Level level, ItemStack itemStack, CallbackInfoReturnable<ItemStack> cir){
@@ -45,17 +41,9 @@ public abstract class LivingEntityMixin implements SpicyData.SpicyAccessor {
             this.muffins_thaidelight$spicyData.addSpicyLevel(50);
             this.muffins_thaidelight$spicyData.setSpicyCooldownLevel(15*20);
         }
-
-        if(itemStack.getTag() != null && itemStack.getTag().contains(ThaiDelight.TASTY_NBT)){
-            boolean bl = itemStack.getTag().getBoolean(ThaiDelight.TASTY_NBT);
-            if(bl){
-                this.addEffect(new MobEffectInstance(ModMobEffects.GLUTTONY,30*20));
-            }
-        }
     }
 
-    @Unique
-    public final SpicyData muffins_thaidelight$spicyData = new SpicyData(((LivingEntity)(Object)this));
+
 
     @Inject(method = "baseTick",at = @At("HEAD"))
     public void muffins_thaidelight$baseTick(CallbackInfo ci){
@@ -81,8 +69,14 @@ public abstract class LivingEntityMixin implements SpicyData.SpicyAccessor {
 
     @ModifyVariable(method = "hurt", at = @At(value = "HEAD"),argsOnly = true)
     public float muffins_thaiDelight$getDamageAfterArmorAbsorb(float f, DamageSource damageSource){
-        if(((SpicyData.SpicyAccessor)this).muffinsThaiDelight$access().getSpicyLevel() > 0 && damageSource.is(DamageTypeTags.IS_FIRE)){
-            float afterSpicy = f * 3;
+        if(((SpicyData.SpicyAccessor)this).muffinsThaiDelight$access().getSpicyLevel() > 0  && damageSource.is(DamageTypeTags.IS_FIRE)){
+            float spicyMultiplier = 1;
+            if(((SpicyData.SpicyAccessor)this).muffinsThaiDelight$access().getSpicyLevelState().equals(SpicyData.SpicyLevel.HIGH)){
+                spicyMultiplier = 2;
+            } else if (((SpicyData.SpicyAccessor) this).muffinsThaiDelight$access().getSpicyLevelState().equals(SpicyData.SpicyLevel.MEDIUM)) {
+                spicyMultiplier = 1.5f;
+            }
+            float afterSpicy = f * spicyMultiplier;
              return afterSpicy;
         }
 
